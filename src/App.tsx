@@ -12,21 +12,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query';
-
-type UserApiResponse = {
-  data: Array<User>;
-  meta: {
-    totalRowCount: number;
-  };
-};
-
-type User = {
-  firstName: string;
-  lastName: string;
-  address: string;
-  state: string;
-  phoneNumber: string;
-};
+import { Pokemon, PokemonList, PokemonListState } from './models/Pokemon';
 
 const Example = () => {
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>(
@@ -40,63 +26,40 @@ const Example = () => {
   });
 
   const { data, isError, isFetching, isLoading, refetch } =
-    useQuery<UserApiResponse>({
+    useQuery<PokemonListState>({
       queryKey: [
         'table-data',
-        columnFilters, //refetch when columnFilters changes
-        globalFilter, //refetch when globalFilter changes
         pagination.pageIndex, //refetch when pagination.pageIndex changes
         pagination.pageSize, //refetch when pagination.pageSize changes
-        sorting, //refetch when sorting changes
       ],
       queryFn: async () => {
         const fetchURL = new URL(
-          '/api/data',
-          process.env.NODE_ENV === 'production'
-            ? 'https://www.material-react-table.com'
-            : 'http://localhost:3000',
+          '/api/v2/pokemon/',
+          'https://pokeapi.co',
         );
         fetchURL.searchParams.set(
-          'start',
+          'offset',
           `${pagination.pageIndex * pagination.pageSize}`,
         );
-        fetchURL.searchParams.set('size', `${pagination.pageSize}`);
-        fetchURL.searchParams.set(
-          'filters',
-          JSON.stringify(columnFilters ?? []),
-        );
-        fetchURL.searchParams.set('globalFilter', globalFilter ?? '');
-        fetchURL.searchParams.set('sorting', JSON.stringify(sorting ?? []));
+        fetchURL.searchParams.set('limit', `${pagination.pageSize}`);
 
         const response = await fetch(fetchURL.href);
-        const json = (await response.json()) as UserApiResponse;
+        const json = (await response.json()) as PokemonListState;
         return json;
       },
       keepPreviousData: true,
     });
 
-  const columns = useMemo<MRT_ColumnDef<User>[]>(
+  const columns = useMemo<MRT_ColumnDef<PokemonList>[]>(
     () => [
       {
-        accessorKey: 'firstName',
-        header: 'First Name',
+        accessorKey: 'name',
+        header: 'Name',
       },
       {
-        accessorKey: 'lastName',
-        header: 'Last Name',
-      },
-      {
-        accessorKey: 'address',
-        header: 'Address',
-      },
-      {
-        accessorKey: 'state',
-        header: 'State',
-      },
-      {
-        accessorKey: 'phoneNumber',
-        header: 'Phone Number',
-      },
+        accessorKey: 'url',
+        header: 'URL',
+      }
     ],
     [],
   );
@@ -104,7 +67,7 @@ const Example = () => {
   return (
     <MaterialReactTable
       columns={columns}
-      data={data?.data ?? []} //data is undefined on first render
+      data={data?.results ?? []} //data is undefined on first render
       initialState={{ showColumnFilters: true }}
       manualFiltering
       manualPagination
@@ -128,7 +91,7 @@ const Example = () => {
           </IconButton>
         </Tooltip>
       )}
-      rowCount={data?.meta?.totalRowCount ?? 0}
+      rowCount={data?.count ?? 0}
       state={{
         columnFilters,
         globalFilter,

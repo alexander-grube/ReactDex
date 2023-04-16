@@ -8,10 +8,22 @@ export interface Pokemon {
   weight: number;
 }
 
+export interface PokemonList {
+  name: string;
+  url: string;
+}
+
 export interface PokemonState {
   page: number;
   count: number;
   limit: number;
   data: Pokemon[];
   loading: boolean;
+}
+
+export interface PokemonListState {
+  count: number;
+  next: number;
+  previous: number;
+  results: PokemonList[];
 }
