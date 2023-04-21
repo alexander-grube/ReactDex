@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import MaterialReactTable, {
   type MRT_ColumnDef,
   type MRT_ColumnFiltersState,
@@ -12,7 +12,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query';
-import { Pokemon, PokemonList, PokemonListState } from './models/Pokemon';
+import { PokemonList, PokemonListState } from './models/Pokemon';
 
 const Example = () => {
   const [columnFilters, setColumnFilters] = useState<MRT_ColumnFiltersState>(
@@ -45,6 +45,10 @@ const Example = () => {
 
         const response = await fetch(fetchURL.href);
         const json = (await response.json()) as PokemonListState;
+        for (const pokemon of json.results) {
+          const pokemonURL = new URL(pokemon.url);
+          pokemon.image = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonURL.pathname.split('/')[4]}.png`;
+        }
         return json;
       },
       keepPreviousData: true,
@@ -55,6 +59,13 @@ const Example = () => {
       {
         accessorKey: 'name',
         header: 'Name',
+      },
+      {
+        accessorKey: 'image',
+        header: 'Image',
+        Cell: ({ cell }) => {
+            return <img alt="" src={cell.getValue<string>()} height={50} />;
+        }
       },
       {
         accessorKey: 'url',
