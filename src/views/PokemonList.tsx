@@ -5,8 +5,8 @@ import MaterialReactTable, {
     type MRT_PaginationState,
     type MRT_SortingState,
 } from 'material-react-table';
-import { IconButton, Tooltip } from '@mui/material';
-import RefreshIcon from '@mui/icons-material/Refresh';
+import { Button, Chip, IconButton, Tooltip } from '@mui/material';
+import { Refresh, ArrowForward } from '@mui/icons-material';
 import {
     QueryClient,
     QueryClientProvider,
@@ -59,6 +59,10 @@ const Example = () => {
             {
                 accessorKey: 'name',
                 header: 'Name',
+                // render the Cell as a Chip
+                Cell: ({ cell }) => {
+                    return <Chip color='primary' label={cell.getValue<string>().toLocaleUpperCase()} />;
+                },
             },
             {
                 accessorKey: 'image',
@@ -70,6 +74,9 @@ const Example = () => {
             {
                 accessorKey: 'url',
                 header: 'URL',
+                Cell: ({ cell }) => {
+                    return <Button variant="contained" href={cell.getValue<string>()} endIcon={<ArrowForward />}>OPEN</Button>;
+                },
             }
         ],
         [],
@@ -98,7 +105,7 @@ const Example = () => {
             renderTopToolbarCustomActions={() => (
                 <Tooltip arrow title="Refresh Data">
                     <IconButton onClick={() => refetch()}>
-                        <RefreshIcon />
+                        <Refresh />
                     </IconButton>
                 </Tooltip>
             )}
