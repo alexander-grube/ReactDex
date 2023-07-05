@@ -8,10 +8,16 @@ export interface Pokemon {
   weight: number;
 }
 
+export interface PokemonAbility {
+  id: number;
+  name: string;
+}
+
 export interface PokemonList {
   name: string;
   image: string;
   url: string;
+  abilities: PokemonAbility[];
 }
 
 export interface PokemonState {
