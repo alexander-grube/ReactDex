@@ -9,6 +9,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import RechartTest from './views/RechartTest';
 
 const router = createHashRouter([
   {
@@ -18,6 +19,10 @@ const router = createHashRouter([
   {
     path: '/pokedex',
     element: <PokemonListView />,
+  },
+  {
+    path: '/chart',
+    element: <RechartTest height={720} width={1280} />,
   }
 ]);
 
