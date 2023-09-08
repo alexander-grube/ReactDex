@@ -10,6 +10,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import RechartTest from './views/RechartTest';
+import JotaiTest from './views/JotaiTest';
 
 const router = createHashRouter([
   {
@@ -23,6 +24,10 @@ const router = createHashRouter([
   {
     path: '/chart',
     element: <RechartTest height={720} width={1280} />,
+  },
+  {
+    path: '/jotai-test',
+    element: <JotaiTest />,
   }
 ]);
 

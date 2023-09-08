@@ -12,6 +12,9 @@ function App() {
       <Link to={'/chart'}>
         <Button variant="contained">Rechart</Button>
       </Link>
+      <Link to={'/jotai-test'}>
+        <Button variant="contained">Jotai Test</Button>
+      </Link>
     </>
   );
 }
