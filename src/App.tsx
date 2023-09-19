@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom';
 import { Typography, Button } from '@mui/material';
-import './App.css'
+import './App.css';
 
 function App() {
   return (
     <>
-      <Typography variant="h1">Welcome to the ReactDex</Typography>
+      <Typography variant="h1" className="text-cyan-500">
+        Welcome to the ReactDex
+      </Typography>
       <Link to={'/pokedex'}>
         <Button variant="contained">Pokedex</Button>
       </Link>
