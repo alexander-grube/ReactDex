@@ -1,4 +1,5 @@
 import { Provider, atom, useAtom } from 'jotai'
+import svg from './vite.svg'
 
 const textAtom = atom('hello')
 const textLenAtom = atom((get) => get(textAtom).length)
@@ -21,6 +22,7 @@ const Uppercase = () => {
 
 const JotaiTest = () => (
   <Provider>
+    <img src={svg} />
     <Input />
     <CharCount />
     <Uppercase />
