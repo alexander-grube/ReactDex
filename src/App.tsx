@@ -5,18 +5,20 @@ import './App.css';
 function App() {
   return (
     <>
-      <Typography variant="h1" className="text-cyan-500">
+      <Typography variant="h1" className="text-cyan-500 !font-medium">
         Welcome to the ReactDex
       </Typography>
-      <Link to={'/pokedex'}>
-        <Button variant="contained">Pokedex</Button>
-      </Link>
-      <Link to={'/chart'}>
-        <Button variant="contained">Rechart</Button>
-      </Link>
-      <Link to={'/jotai-test'}>
-        <Button variant="contained">Jotai Test</Button>
-      </Link>
+      <div className='flex space-x-4'>
+        <Link to={'/pokedex'}>
+          <Button variant="contained">Pokedex</Button>
+        </Link>
+        <Link to={'/chart'}>
+          <Button variant="contained">Rechart</Button>
+        </Link>
+        <Link to={'/jotai-test'}>
+          <Button variant="contained">Jotai Test</Button>
+        </Link>
+      </div>
     </>
   );
 }
