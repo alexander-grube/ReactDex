@@ -54,8 +54,7 @@ const Example = () => {
           ];
         }
         return json;
-      },
-      keepPreviousData: true,
+      }
     });
 
   const columns = useMemo<MRT_ColumnDef<PokemonList>[]>(
