@@ -9,12 +9,6 @@ function App() {
         Welcome to the ReactDex
       </Typography>
       <div className='flex space-x-4'>
-        <Link to={'/pokedex'}>
-          <Button variant="contained">Pokedex</Button>
-        </Link>
-        <Link to={'/chart'}>
-          <Button variant="contained">Rechart</Button>
-        </Link>
         <Link to={'/jotai-test'}>
           <Button variant="contained">Jotai Test</Button>
         </Link>
